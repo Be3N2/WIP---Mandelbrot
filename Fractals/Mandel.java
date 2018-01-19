@@ -55,8 +55,8 @@ public class Mandel {
 		}*/
 		if (zoomIn < 0) {//zoom in
 			
-			double posX = mouseX * zoom / WIDTH;
-			double posY = mouseY * zoom / WIDTH;
+			double posX = (mouseX - xOffset) * zoom / WIDTH;
+			double posY = (mouseY - yOffset) * zoom / WIDTH;
 			double centerX = (WIDTH /2 - xOffset) * zoom / WIDTH;
 			double centerY = (HEIGHT /2 - yOffset) * zoom / WIDTH;
 			double distX = posX - centerX;
