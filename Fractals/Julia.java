@@ -6,14 +6,16 @@ public class Julia {
 
 	private final int WIDTH, HEIGHT;
 	public int pixels[];
-	private int max = 4096; //was 1000 
+	private int max = 1000; //was 4096 
 	private boolean drawn = false;
-	private double zoom = 2.0; //larger is zoomed out
+	public double zoom = 4.0; //larger is zoomed out
 	private int xOffset, yOffset;
-	public double cX = -0.9999999; //first attempt -0.7  -0.9999999
-    public double cY = 0.27015; //first attempt 0.27015 0.145 
+//	public double cX = -0.9999999; //first attempt -0.7  -0.9999999
+//  public double cY = 0.27015; //first attempt 0.27015 0.145 
 //	private double cX = -0.9878787;//-0.88888;
 //	private double cY = 0.232;//0.269;
+	public double cX = -0.7;
+	public double cY = 0.27015;
 	
 	public Julia (int width, int height) {
 		this.WIDTH = width;
@@ -26,15 +28,36 @@ public class Julia {
 		
 	}
 	
-	public void setData(int centerX, int centerY, int zoomIn) {
-		if (zoomIn < 0) {
-		 	this.zoom /= 2;
-		 	this.xOffset += zoom * (xOffset - centerX); //really not sure about this one
-			this.yOffset += zoom * (yOffset - centerY);
-		} else if (zoomIn > 0) {
-		 	this.zoom *= 2.0;
-		 	xOffset = WIDTH / 2;
-		 	yOffset = HEIGHT / 2;
+	public void setData(int mouseX, int mouseY, int zoomIn) {
+		if (zoomIn < 0) {//zoom in
+			
+		
+			double posX = 1.5 * (mouseX - xOffset) / (zoom * WIDTH);
+			double posY = (mouseY - yOffset) / (zoom * HEIGHT);
+			
+//			this.zoom *= 2;
+			
+			double centerX = 1.5 *  (WIDTH /2 - xOffset) / (zoom * WIDTH);
+			double centerY = (HEIGHT /2 - yOffset) / (zoom * HEIGHT);
+			double distX = centerX - posX;
+			double distY = centerY - posY;
+			xOffset += (distX * (zoom / WIDTH)) / 1.5;
+			yOffset += distY * (zoom / HEIGHT);
+			
+			
+		} else if (zoomIn > 0) {//zoom out	
+			
+			double posX = 1.5 * (mouseX - xOffset) / (zoom * WIDTH);
+			double posY = (mouseY - yOffset) / (zoom * HEIGHT);
+			
+//			this.zoom /= 2;
+			
+			double centerX = 1.5 * (WIDTH /2 - xOffset) / (zoom * WIDTH);
+			double centerY = (HEIGHT /2 - yOffset) / (zoom * HEIGHT);
+			double distX = centerX - posX;
+			double distY = centerY - posY;
+			xOffset += (distX * (zoom / WIDTH)) / 1.5;
+			yOffset += distY * (zoom / HEIGHT);
 		}
 	}
 	

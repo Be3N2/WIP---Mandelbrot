@@ -38,7 +38,10 @@ public class Home {
 			private int rowCounter = 0;
 			private boolean zoomed = false;
 			private int timeOut = 0;
-			private boolean mandelMode = true;
+			private int switchTime = 0;
+			private boolean overlay = true;
+			private int switchTimer2 = 0;
+			private boolean mandelMode = false;
 			
 			public static String title = "Mandelbrot";
 			
@@ -110,6 +113,21 @@ public class Home {
 			public void update() {	
 				key.update();
 				
+				switchTime++;
+				if (key.m && switchTime > 60) {
+					mandelMode = !mandelMode;
+					switchTime = 0;
+					mandel = new Mandel(width, height);
+					julia = new Julia(width, height);
+					rowCounter = 0;
+				}
+				
+				switchTimer2++;
+				if (switchTimer2 > 60 && key.w) {
+					switchTimer2 = 0;
+					overlay = !overlay;
+				}
+				
 				//change zoom
 				if (mouse.getB() > 0) {
 					if (!zoomed) {
@@ -130,6 +148,7 @@ public class Home {
 						}
 					}
 				}
+				
 				//time out zoom input
 				if (zoomed) {
 					timeOut++;
@@ -179,14 +198,20 @@ public class Home {
 				g.setColor(Color.WHITE);
 				Font h = new Font("Helvetica", Font.PLAIN, 50);
 				g.setFont(h);
-				if (mandelMode) {
-					g.drawString("Zoom:", 50, 100);
-					g.drawString(String.valueOf(mandel.zoom), 200, 100);
-				} else {
-					g.drawString(String.valueOf(julia.cX), 600, 1070);
+				
+				if (overlay) {
+					if (mandelMode) {
+						g.drawString("Zoom:", 50, 100);
+						g.drawString(String.valueOf(mandel.zoom), 200, 100);
+					} else {
+						g.drawString("Zoom:", 50, 100);
+						g.drawString(String.valueOf(julia.zoom), 200, 100);
+						g.drawString(String.valueOf(julia.cX), 600, 1070);
+						g.drawString(String.valueOf(julia.cY), 900, 1070);
+					}
 				}
 				
-				g.fillOval(width/2 - 12,height/2 - 12, 24,24);
+//				g.fillOval(width/2 - 12,height/2 - 12, 24,24);
 				g.dispose();
 				bs.show();
 			}

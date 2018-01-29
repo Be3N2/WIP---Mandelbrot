@@ -11,7 +11,6 @@ public class Mandel {
 	private int max = 4096; //was 1000
 	private boolean drawn = false;
 	public double zoom = 4.0; //larger is zoomed out
-	private double initial = 0.5;
 	private double xOffset, yOffset;
 	
 	public Mandel (int width, int height) {
@@ -20,57 +19,41 @@ public class Mandel {
 		
 		xOffset = WIDTH/2;
 		yOffset = HEIGHT/2;
-		//System.out.println("offset;" + (1165 - (WIDTH / 2)));
-		//System.out.println("offset;" + (542 - (HEIGHT / 2)));
 		
 		this.pixels = new int[WIDTH * HEIGHT];
 		
 	}
 	
 	public void setData(int mouseX, int mouseY, int zoomIn) {
-		/*if (zoomIn < 0) { //zoom in
-			double posX = centerX / zoom;
-			double posY = centerY / zoom;
-			double centerrX = (WIDTH/2)/zoom + xOffset/zoom;
-			double centerrY = (HEIGHT/2)/zoom + yOffset/zoom;
-			double distX = centerrX - posX;
-			double distY = centerrY - posY;
-			xOffset += distX;
-			yOffset += distY;
-//		 	this.xOffset += zoom * (xOffset - centerX); //really not sure about this one
-//			this.yOffset += zoom * (yOffset - centerY);
-//			this.zoom /= 2;
-		} else if (zoomIn > 0) { //zoom out
-			double posX = centerX / zoom;
-			double posY = centerY / zoom;
-			double centerrX = (WIDTH/2)/zoom + xOffset/zoom;
-			double centerrY = (HEIGHT/2)/zoom + yOffset/zoom;
-			double distX = centerrX - posX;
-			double distY = centerrY - posY;
-			xOffset += distX;
-			yOffset += distY;
-//		 	this.zoom *= 2.0;
-//		 	xOffset = WIDTH / 2;
-//		 	yOffset = HEIGHT / 2;
-		}*/
+		
 		if (zoomIn < 0) {//zoom in
 			
 			double posX = (mouseX - xOffset) * zoom / WIDTH;
 			double posY = (mouseY - yOffset) * zoom / WIDTH;
+			
+			this.zoom /=2;
+			
 			double centerX = (WIDTH /2 - xOffset) * zoom / WIDTH;
 			double centerY = (HEIGHT /2 - yOffset) * zoom / WIDTH;
-			double distX = posX - centerX;
-			double distY = posY - centerY;
+			double distX = centerX - posX;
+			double distY = centerY - posY;
 			xOffset += distX * WIDTH / zoom;
 			yOffset += distY * WIDTH / zoom;
 			
-//			this.zoom /=2;
-		} else if (zoomIn > 0) {//zoom out
-//			this.zoom *= 2;
-			int distX = WIDTH/2 - mouseX;
-			int distY = HEIGHT/2 - mouseY;
-			xOffset += distX / zoom;
-			yOffset += distY / zoom;
+			
+		} else if (zoomIn > 0) {//zoom out	
+			
+			double posX = (mouseX - xOffset) * zoom / WIDTH;
+			double posY = (mouseY - yOffset) * zoom / WIDTH;
+			
+			this.zoom *= 2;
+			
+			double centerX = (WIDTH /2 - xOffset) * zoom / WIDTH;
+			double centerY = (HEIGHT /2 - yOffset) * zoom / WIDTH;
+			double distX = centerX - posX;
+			double distY = centerY - posY;
+			xOffset += distX * WIDTH / zoom;
+			yOffset += distY * WIDTH / zoom;
 		}
 		
 	}
@@ -90,15 +73,6 @@ public class Mandel {
 	                    iterations++;
 	                } 
 	                
-	                /*
-	                if (iterations < max) {
-	                	//int color = 0xffffff / iterations;
-	                	double value = ((double) iterations / (double) max);
-	                	int color = (int) (0xffffff * ((double) max / (double) iterations));
-	                	System.out.println(value);
-	                	pixels[col + row * WIDTH] = color;
-	                } else pixels[col + row * WIDTH] = 0x000000;
-	                */
 	                pixels[col + row * WIDTH] = evalIterations(iterations);
 	            }
 	            drawn = true;
