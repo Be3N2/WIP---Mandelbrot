@@ -11,11 +11,13 @@ public class Julia {
 	public double zoom = 4.0; //larger is zoomed out
 	private int xOffset, yOffset;
 //	public double cX = -0.9999999; //first attempt -0.7  -0.9999999
-//  public double cY = 0.27015; //first attempt 0.27015 0.145 
-//	private double cX = -0.9878787;//-0.88888;
-//	private double cY = 0.232;//0.269;
-	public double cX = -0.7;
-	public double cY = 0.27015;
+////  public double cY = 0.27015; //first attempt 0.27015 0.145 
+//	public double cX = -0.9878787;//-0.88888;
+//	public double cY = 0.232;//0.269;
+//	public double cX = -0.7;
+//	public double cY = 0.27015;
+	public double cX = -0.900000; //first attempt -0.7  -0.9999999
+public double cY = 0.232; //first attempt 0.27015 0.145 
 	
 	public Julia (int width, int height) {
 		this.WIDTH = width;
@@ -29,6 +31,7 @@ public class Julia {
 	}
 	
 	public void setData(int mouseX, int mouseY, int zoomIn) {
+		/*
 		if (zoomIn < 0) {//zoom in
 			
 		
@@ -59,6 +62,7 @@ public class Julia {
 			xOffset += (distX * (zoom / WIDTH)) / 1.5;
 			yOffset += distY * (zoom / HEIGHT);
 		}
+		*/
 	}
 	
 	public void drawRow(int row) {

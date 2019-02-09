@@ -6,7 +6,7 @@ import java.awt.event.KeyListener;
 public class Keyboard implements KeyListener{
 	
 	private boolean[] keys = new boolean[100];
-	public boolean esc, left, right, up, down, m, w;
+	public boolean esc, left, right, up, down, m, w, u, i;
 	
 	public void update() {
 		esc = keys[KeyEvent.VK_ESCAPE];
@@ -16,6 +16,8 @@ public class Keyboard implements KeyListener{
 		down = keys[KeyEvent.VK_DOWN];
 		m = keys[KeyEvent.VK_M];
 		w = keys[KeyEvent.VK_W];
+		u = keys[KeyEvent.VK_U];
+		i = keys[KeyEvent.VK_I];
 	}
 	
 	public void keyPressed(KeyEvent e) {

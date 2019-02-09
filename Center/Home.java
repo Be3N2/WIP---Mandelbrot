@@ -121,6 +121,16 @@ public class Home {
 					julia = new Julia(width, height);
 					rowCounter = 0;
 				}
+				if (key.u) {
+					julia.cX -= 0.00001;
+					rowCounter = 0;
+					julia.setData(mouse.getX(), mouse.getY(), 1);
+				}
+				if (key.i) {
+					julia.cX += 0.00001;
+					rowCounter = 0;
+					julia.setData(mouse.getX(), mouse.getY(), 1);
+				}
 				
 				switchTimer2++;
 				if (switchTimer2 > 60 && key.w) {
