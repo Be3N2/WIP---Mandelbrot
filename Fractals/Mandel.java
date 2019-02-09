@@ -94,7 +94,9 @@ public class Mandel {
                 iterations++;
             } 
             
-            pixels[col + row * WIDTH] = evalIterations(iterations);
+//            pixels[col + row * WIDTH] = evalIterations(iterations);
+//            pixels[col + row * WIDTH] = blue(iterations);
+            pixels[col + row * WIDTH] = darkpurple(iterations);
         }
 	}
 	
@@ -121,6 +123,51 @@ public class Mandel {
 		} 
 		return returnCol;
 	}
-	
-	
+	private int blue(int count) {
+		int returnCol = 0x0000000;//black
+		Color hexCol = new Color(0,0,0);
+		if (count < max) {
+			if (count < 64) {
+				hexCol = new Color(0, 0, count * 4);    /* 0x0000 to 0x007E */
+			} else if (count < 128) {
+				hexCol = new Color(0, 0, (((count - 64) * 128) / 126) + 128);    /* 0x0080 to 0x00C0 */
+			} else if (count < 256) {
+				hexCol = new Color(0, 0, (((count - 128) * 62) / 127) + 193);    /* 0x00C1 to 0x00FF */
+			} else if (count < 512) {
+				hexCol = new Color((((count - 256) * 62) / 255) + 1, 0, 255);    /* 0x01FF to 0x3FFF */
+			} else if (count < 1024) {
+				hexCol = new Color((((count - 512) * 63) / 511) + 64, 0, 255);   /* 0x40FF to 0x7FFF */
+			} else if (count < 2048) {
+				hexCol = new Color(((count - 1024) / 1023) * 255 / 2, 0, 255);   /* 0x80FF to 0xBFFF */
+			} else if (count < 4096) {
+				hexCol = new Color(((count - 2048) / 2047) * 255, 0, 255);   /* 0xC0FF to 0xFFFF */
+			} 
+			return hexCol.getRGB();
+		} 
+		return returnCol;
+	}
+	private int darkpurple(int count) {
+		int returnCol = 0x0000000;//black
+		Color hexCol = new Color(0,0,0);
+		if (count < max) {
+			if (count < 64) {
+				hexCol = new Color(count * 2, 0, count * 2); 
+			} else if (count < 128) {
+				hexCol = new Color(25, 0, 25);    
+			} else if (count < 256) {
+				hexCol = new Color(50, 0, 50);   
+			} else if (count < 512) {
+				hexCol = new Color(75, 0, 75);    
+			} else if (count < 1024) {
+				hexCol = new Color(100, 0, 100);   
+			} else if (count < 2048) {
+				hexCol = new Color(125, 0, 125);   
+			} else if (count < 4096) {
+				hexCol = new Color(150, 0, 150);   
+			} 
+			return hexCol.getRGB();
+		} 
+		return returnCol;
+	}
+
 }
